@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivo Municipal - Caso Mendoza [FICCIÓN]</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #1a1a1a;
+            color: #00ff41;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+        
+        .crt-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            animation: scan 0.1s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            border: 2px solid #00ff41;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(0, 255, 65, 0.05);
+            animation: flicker 3s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .disclaimer {
+            background: #ff0000;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 2px solid #ffffff;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.7; }
+        }
+        
+        .terminal-window {
+            background: #000;
+            border: 2px solid #00ff41;
+            margin: 20px 0;
+            padding: 15px;
+        }
+        
+        .terminal-header {
+            background: #00ff41;
+            color: #000;
+            padding: 5px 10px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+        }
+        
+        .entry {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 3px solid #00ff41;
+            background: rgba(0, 255, 65, 0.02);
+        }
+        
+        .date {
+            color: #ffff00;
+            font-weight: bold;
+        }
+        
+        .classified {
+            background: #1a1a1a;
+            color: #1a1a1a;
+            padding: 2px 5px;
+            cursor: pointer;
+            border: 0px dashed #1a1a1a;
+            transition: all 0.3s;
+        }
+        
+        .classified:hover {
+            background: #1a1a1a;
+            color: #ff0000;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px dashed #00ff41;
+        }
+        
+        .corrupted-image {
+            width: 300px;
+            height: 200px;
+            background: 
+                linear-gradient(45deg, transparent 40%, #00ff41 40%, #00ff41 60%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, #ff0000 40%, #ff0000 60%, transparent 60%),
+                repeating-linear-gradient(0deg, #000 0px, #000 2px, #00ff41 2px, #00ff41 4px);
+            background-size: 20px 20px, 20px 20px, 100% 4px;
+            border: 2px solid #00ff41;
+            position: relative;
+            overflow: hidden;
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        .error-text {
+            color: #ff0000;
+            font-weight: bold;
+            animation: blink 0.5s infinite;
+        }
+        
+        .timestamp {
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 2px solid #00ff41;
+            text-align: center;
+            color: #888;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #00ff41;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00ff41; }
+        }
+        
+        .audio-player {
+            background: #000;
+            border: 2px solid #00ff41;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #333;
+            border: 1px solid #00ff41;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #00ff41;
+            width: 0%;
+            animation: loading 3s ease-in-out infinite;
+        }
+        
+        @keyframes loading {
+            0%, 100% { width: 0%; }
+            50% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="crt-effect"></div>
+    
+    <div class="container">
+        
+        <div class="header">
+            <h1 class="typewriter">ARCHIVO MUNICIPAL LOBOS</h1>
+            <p>Sistema de Registros Históricos v2.1</p>
+            <p class="timestamp">Última conexión: ERROR_TIMESTAMP_NOT_FOUND</p>
+        </div>
+        
+        <div class="terminal-window">
+            <div class="terminal-header">EXPEDIENTE: CASO_MENDOZA_CLASIFICADO</div>
+            <p>> Accediendo a registros históricos...</p>
+            <p>> Buscando: "Casa Mendoza" + "Incidentes"</p>
+            <p>> <span class="error-text">ADVERTENCIA: Algunos archivos pueden estar corruptos</span></p>
+        </div>
+        
+        <div class="entry">
+            <div class="date">15 DE OCTUBRE DE 1957</div>
+            <p><strong>REPORTE POLICIAL #4451</strong></p>
+            <p>Oficial reporta desaparición de María Mendoza (19 años) en propiedad familiar. 
+            Testigos mencionan <span class="classified">luces extrañas</span> y 
+            <span class="classified">gritos que no parecían humanos</span> durante la madrugada.</p>
+            <p>Investigación cerrada por <span class="classified"> Iglesia católica </span></p>
+        </div>
+        
+        <div class="image-container">
+            <div class="corrupted-image"></div>
+            <p class="error-text">ERROR: Foto_Casa_Mendoza_1957.jpg - ARCHIVO CORRUPTO</p>
+        </div>
+        
+        <div class="entry">
+            <div class="date">23 DE SEPTIEMBRE DE 1987</div>
+            <p><strong>REGISTRO MÉDICO FORENSE</strong></p>
+            <p>Elena Mendoza (17 años) encontrada en <span class="classified">estado catatónico</span>. 
+            Causa de muerte: <span class="classified">Paro cardíaco inexplicable</span> a su estado de salud.</p>
+            <p>Nota del forense: "Expresión facial no coincide con trauma típico de paro cardíaco."</p>
+        </div>
+        
+
+        <div class="entry">
+            <div class="date">12 DE NOVIEMBRE DE 2003</div>
+            <p><strong>REPORTE DE BOMBEROS</strong></p>
+            <p>Carlos Mendoza (34 años) encontrado en el ático de la propiedad familiar. 
+            Sin signos de trauma físico. <span class="classified">Ventanas y puertas cerradas desde adentro</span>.</p>
+            <p>Los bomberos reportan que las <span class="classified">herramientas eléctricas fallaron</span> 
+            al intentar forzar la entrada.</p>
+        </div>
+        
+        <div class="terminal-window">
+            <div class="terminal-header">ALERTA DEL SISTEMA</div>
+            <p class="error-text">> CONEXIÓN INTERRUMPIDA</p>
+            <p class="error-text">> Detectando acceso no autorizado...</p>
+            <p class="error-text">> Iniciando protocolo de seguridad...</p>
+            <p>> <span style="color: #ffff00;">¿Quién está leyendo esto?</span></p>
+        </div>
+        
+        <div class="entry">
+            <div class="date">FECHA_ERROR: 2019/2019/2019</div>
+            <p><strong>REPORTE DIGITAL CORRUPTO</strong></p>
+            <p>S fía Men oz  - Influencer - Transmisión en vivo interrumpida - 
+            <span class="classified">150,000 testigos virtuales</span></p>
+            <p>Video viral: "Muerte en directo" - Eliminado por 
+            <span class="classified">violación de políticas comunitarias</span></p>
+            <p class="error-text">ERROR: Los datos siguientes no deberían existir</p>
+        </div>
+                <div class="audio-player">
+            <p>🎵 GRABACIÓN RECUPERADA: vid_sofi.mp4</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p class="error-text">ERROR: Archivo de video irrecuperable</p>
+        </div>
+        
+        <div class="entry">
+            <div class="date">????-??-?? [TIMESTAMP_CORRUPTO]</div>
+            <p><strong>REGISTRO AUTOMÁTICO DEL SISTEMA</strong></p>
+            <p>Miguel Mendoza - Desarrollador - Sistema VR activo</p>
+            <p>Estado: <span class="classified">DESCONOCIDO</span></p>
+            <p>Ubicación GPS: <span class="error-text">ERROR_404_UBICACIÓN_NO_ENCONTRADA</span></p>
+            <p class="error-text">ADVERTENCIA: Este registro se actualiza automáticamente</p>
+        </div>
+        
+        <div class="terminal-window">
+            <div class="terminal-header">MENSAJE DEL SISTEMA</div>
+            <p>> Búsqueda completada</p>
+            <p>> Archivos encontrados: <span class="error-text">∞</span></p>
+            <p>> ¿Desea continuar navegando?</p>
+            <p class="error-text">> ADVERTENCIA: Su dirección IP ha sido registrada</p>
+            <p class="error-text">> ¿Tiene algún familiar llamado Mendoza?</p>
+        </div>
+        
+        <div class="image-container">
+            <div class="corrupted-image"></div>
+            <p class="error-text">ERROR: Su_foto_futura.jpg cargando... FALLO en la carga</p>
+            <p style="color: #ffff00;">¿Por qué está sonriendo de esa manera?</p>
+        </div>
+        
+        <div class="footer">
+            <p>Archivo Municipal Digital - Sistema v2.1</p>
+            <p class="timestamp">Conexión terminada: ERROR</p>
+        </div>
+        
+        <div class="terminal-window">
+            <div class="terminal-header">SESIÓN FINALIZADA</div>
+            <p>> Cerrando conexión...</p>
+            <p>> Borrando historial de navegación...</p>
+            <p class="error-text">> ERROR: No se puede borrar</p>
+            <p class="error-text">> ERROR: El archivo sigue abierto</p>
+            <p class="error-text">> ERROR: Usted sigue aquí</p>
+            <p style="color: #ffff00;">> Nos vemos pronto.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Efecto de glitch aleatorio en el texto
+        setInterval(() => {
+            const elements = document.querySelectorAll('.classified');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            if (randomElement) {
+                randomElement.style.background = '#ff0000';
+                randomElement.style.color = '#fff';
+                setTimeout(() => {
+                    randomElement.style.background = '#000';
+                    randomElement.style.color = '#000';
+                }, 100);
+            }
+        }, 2000);
+        
+        // Efecto de typing en tiempo real
+        setTimeout(() => {
+            const newMessage = document.createElement('p');
+            newMessage.innerHTML = '> <span style="color: #ffff00;">Detectando nueva conexión desde su ubicación...</span>';
+            newMessage.style.animation = 'typing 2s steps(40, end)';
+            document.querySelector('.terminal-window:last-of-type').appendChild(newMessage);
+        }, 5000);
+        
+        // Simulación de "hackeo" del navegador
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                alert('ERROR: Función deshabilitada por motivos de seguridad ');
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
